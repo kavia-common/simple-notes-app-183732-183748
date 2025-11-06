@@ -1,8 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders header and fab', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /simple notes/i })).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: /create note/i })).toBeInTheDocument();
+});
+
+test('renders notes list panel', () => {
+  render(<App />);
+  expect(screen.getByRole('complementary', { name: /notes list/i })).toBeInTheDocument();
 });
