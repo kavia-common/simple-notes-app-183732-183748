@@ -1,9 +1,16 @@
 # Supabase Integration
 
-This frontend expects a Supabase project with a `notes` table:
+This frontend connects directly to Supabase and expects a `notes` table.
 
+You can create the schema using the repository-provided SQL file:
+- File: ../supabase/schema.sql
+- Open Supabase SQL editor in your project, paste the file contents, and run.
+
+Inline SQL (for reference):
 ```sql
-create table public.notes (
+create extension if not exists pgcrypto;
+
+create table if not exists public.notes (
   id uuid primary key default gen_random_uuid(),
   title text,
   content text,
@@ -11,7 +18,6 @@ create table public.notes (
   updated_at timestamptz default now()
 );
 
--- optional: keep updated_at in sync
 create or replace function public.set_updated_at()
 returns trigger as $$
 begin
@@ -25,8 +31,16 @@ create trigger set_updated_at before update on public.notes
 for each row execute procedure public.set_updated_at();
 ```
 
-Environment variables:
+Environment variables (set these in notes_frontend/.env):
 - REACT_APP_SUPABASE_URL
 - REACT_APP_SUPABASE_KEY
 
-Place them in a `.env` file in the `notes_frontend` directory based on `.env.example`.
+Example .env:
+```
+REACT_APP_SUPABASE_URL=https://YOUR-PROJECT-REF.supabase.co
+REACT_APP_SUPABASE_KEY=YOUR-ANON-PUBLIC-KEY
+```
+
+Notes:
+- Do not hardcode credentials; use environment variables.
+- For production, implement proper Row Level Security with auth instead of permissive policies.

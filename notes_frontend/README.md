@@ -27,6 +27,28 @@ Launches the test runner in interactive watch mode.
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
+## Supabase Setup
+
+This frontend requires a Supabase project and a `notes` table.
+
+1) Create a Supabase project and obtain:
+   - REACT_APP_SUPABASE_URL
+   - REACT_APP_SUPABASE_KEY (anon public key)
+
+2) Apply the schema:
+   - Open Supabase SQL editor and run the SQL from `../supabase/schema.sql` (relative to this README).
+
+3) Create `notes_frontend/.env` with:
+```
+REACT_APP_SUPABASE_URL=https://YOUR-PROJECT-REF.supabase.co
+REACT_APP_SUPABASE_KEY=YOUR-ANON-PUBLIC-KEY
+```
+
+Additional optional envs supported by the template:
+REACT_APP_API_BASE, REACT_APP_BACKEND_URL, REACT_APP_FRONTEND_URL, REACT_APP_WS_URL, REACT_APP_NODE_ENV, REACT_APP_NEXT_TELEMETRY_DISABLED, REACT_APP_ENABLE_SOURCE_MAPS, REACT_APP_PORT, REACT_APP_TRUST_PROXY, REACT_APP_LOG_LEVEL, REACT_APP_HEALTHCHECK_PATH, REACT_APP_FEATURE_FLAGS, REACT_APP_EXPERIMENTS_ENABLED
+
+Security note: The provided schema includes optional permissive RLS policies (commented). For production, implement proper auth and restrictive policies.
+
 ## Customization
 
 ### Colors
